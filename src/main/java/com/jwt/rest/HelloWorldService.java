@@ -10,6 +10,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
+import com.howtodoinjava.exception.MyApplicationException;
 import com.jwt.domain.Customer;
 
 import com.jwt.persistence.CustomerDAO;
@@ -30,6 +31,10 @@ public class HelloWorldService {
     @Path("/get")
     public Response getCustomer(@QueryParam("id") int id) throws Exception {
   
+    	if(id == 0)
+        {
+            throw new MyApplicationException("id is not present in request !!");
+        }
     	CustomerDAO dao = new CustomerDAO();
 		Customer customer = dao.getCustomer(id);
 		String output = "Dit is:" + customer.getName() +" "+customer.getLastname() + "," + customer.getStraat()+ ","+ customer.getNummer()+"." ;
