@@ -22,7 +22,7 @@ public class CustomerDAO extends ConnectionFactory{
 	public Customer getCustomer(int id) throws Exception {
         	Connection connect = null;
         	connect = getConnection();
-        	Customer customer = new Customer("fout", "kut","nee", 2);
+        	Customer customer = null;
             
 
         	PreparedStatement stmt = super.getConnection().prepareStatement("SELECT firstname, lastname, adress, streetnumber FROM customer WHERE id = ?;");
@@ -31,6 +31,7 @@ public class CustomerDAO extends ConnectionFactory{
     		while(rs.next()) {
     		customer = new Customer(rs.getString("firstname"), rs.getString("lastname"),rs.getString("adress"), rs.getInt("streetnumber"));
     		}
+    		connect.close();
     	return customer;
     }
 	

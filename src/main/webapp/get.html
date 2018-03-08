@@ -156,6 +156,10 @@ body {
 				      401: function (response) {
 				         alert('Je gegevens zijn niet correct ingevuld, controleer je gegevens. VERDOMME');
 				      },
+				      
+				      500: function (response) {
+					         alert('DEZE BESTAAT NIET');
+					      },
 				   }, success: function (response) {
 					   console.log(response);
 				   },
