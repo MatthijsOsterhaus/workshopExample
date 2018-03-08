@@ -14,25 +14,17 @@ public class Customer {
 	private Adress adress;
 	private List<Order> orders = new ArrayList<Order>();
 	private int cart_id;
+	private String straat;
+	
+	private int nummer;
 
-	public Customer(int id, String name, String lastname, String username, String password, String role, Adress adress) {
+	public Customer(String name, String lastname, String straat, int nummer) {
 		this.id = id;
 		this.name = name;
 		this.lastname = lastname;
-		this.adress = adress;
-	}
-
-	public Customer(String name, String lastname, String username, String password, String role, Adress adress,
-			ArrayList<Order> orders, int cart_id, String token) {
-		this.name = name;
-		this.lastname = lastname;
-		this.username = username;
-		this.password = password;
-		this.adress = adress;
-		this.role = role;
-		this.orders = orders;
-		this.token = token;
-	}
+		this.straat = straat;
+		this.nummer = nummer;
+				}
 
 	public String getName() {
 		return name;
@@ -93,4 +85,21 @@ public class Customer {
 	public void addOrder(Order order) {
 		this.orders.add(order);
 	}
+	
+	public String getStraat() {
+		return straat;
+	}
+
+	public void setStraat(String straat) {
+		this.straat = straat;
+	}
+
+	public int getNummer() {
+		return nummer;
+	}
+
+	public void setNummer(int nummer) {
+		this.nummer = nummer;
+	}
+
 }

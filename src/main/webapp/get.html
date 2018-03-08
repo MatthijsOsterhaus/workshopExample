@@ -127,9 +127,9 @@ body {
 			<form id="login-form"
 				method="post" role="form"
 				style="display: block;">
-				<p>Vul het id in van de klant die verwijderd moet worden.</p>
+				<p>Vul het id in van de customer.</p>
 				<div class="form-group">
-					<input type="number" name="id" id="id" tabindex="1"
+					<input type="number" name="id1" id="id1" tabindex="1"
 						class="form-control" placeholder="id" value="">
 				</div>
 			
@@ -139,7 +139,7 @@ body {
 					<div class="row">
 						<div class="col-sm-6 col-sm-offset-3">
 							<input type="submit" name="login-submit" id="login-submit"
-								tabindex="4" class="form-control btn btn-login" value="Delete">
+								tabindex="4" class="form-control btn btn-login" value="Get">
 						</div>
 					</div>
 				</div>
@@ -149,16 +149,15 @@ body {
 	</div>
 	<script>
 		$("#login-form").submit(function(){
-			var data = $("#login-form").serialize();
-			$.ajax("rest/hello/delete", {
-				   type: "DELETE",
-				   data: data,
+			id = $("#id1").val();
+			$.ajax("rest/hello/get?id="+id, {
+				   type: "GET",
 				   statusCode: {
 				      401: function (response) {
 				         alert('Je gegevens zijn niet correct ingevuld, controleer je gegevens. VERDOMME');
 				      },
 				   }, success: function (response) {
-					   window.location.href = "delete.html";
+					   console.log(response);
 				   },
 				});
 			return false;

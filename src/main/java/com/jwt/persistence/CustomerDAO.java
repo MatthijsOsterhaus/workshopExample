@@ -12,43 +12,28 @@ import com.jwt.domain.*;
 
 
 
+
 public class CustomerDAO extends ConnectionFactory{
 
 	private ConnectionFactory connFactory = new ConnectionFactory();
 	private Connection conn;
 	
-	public ArrayList<Customer> allCustomers() throws SQLException, ClassNotFoundException {
-		conn = super.getConnection();
-		ArrayList<Customer> customers = new ArrayList<Customer>();
-		Statement st = conn.createStatement();
-		ResultSet rs = st.executeQuery("SELECT * FROM customer");
-		while (rs.next()) {
-			Adress adress = new Adress(rs.getString("adress"), rs.getInt("streetnumber"), rs.getInt("id"));
-			Customer customer = new Customer(rs.getInt("id"), rs.getString("firstname"), rs.getString("lastname"),
-					rs.getString("username"), rs.getString("password"), rs.getString("role"), adress);
-			customers.add(customer);
-		}
-		// Adress adress = new Adress("Stromenlaan", 155);
-		// Customer customer = new Customer("Sten", "Terwan", adress);
-		// customers.add(customer);
-		conn.close();
-		return customers;
-		
-	}
 	
-	public int getCustomerID(String token) throws SQLException {
-		int id = 0;
-		PreparedStatement stmt = super.getConnection().prepareStatement("SELECT id FROM customer WHERE token = ?");
-		stmt.setString(1, token);
-		ResultSet rs = stmt.executeQuery();
-		while(rs.next()) {
-			id = rs.getInt("id");
-		}
-		return id;		
-	}
+	public Customer getCustomer(int id) throws Exception {
+        	Connection connect = null;
+        	connect = getConnection();
+        	Customer customer = new Customer("fout", "kut","nee", 2);
+            
 
-	
-	
+        	PreparedStatement stmt = super.getConnection().prepareStatement("SELECT firstname, lastname, adress, streetnumber FROM customer WHERE id = ?;");
+    		stmt.setInt(1, id);
+    		System.out.println(stmt.toString());
+    		ResultSet rs = stmt.executeQuery();
+    		while(rs.next()) {
+    		customer = new Customer(rs.getString("firstname"), rs.getString("lastname"),rs.getString("adress"), rs.getInt("streetnumber"));
+    		}
+    	return customer;
+    }
 	
 	public void AddCustomer(String naam, String achternaam, String adres, int streetnumber ) throws Exception {
         try {

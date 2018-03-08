@@ -33,12 +33,5 @@ public class CartDAO extends ConnectionFactory {
 		return cart;
 	}
 	
-	public void addProductToCart(int id, String token) throws SQLException {
-		CustomerDAO cDao = new CustomerDAO();
-		int customer_id = cDao.getCustomerID(token);
-		PreparedStatement stmt = super.getConnection().prepareStatement("INSERT INTO cart (product_id, customer_id) VALUES(?, ?)");
-		stmt.setInt(1, id);
-		stmt.setInt(2, customer_id);
-		stmt.executeUpdate();
-	}
+	
 }

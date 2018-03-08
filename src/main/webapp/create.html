@@ -127,7 +127,7 @@ body {
 			<form id="login-form"
 				method="post" role="form"
 				style="display: block;">
-				<p>Login om landen te bezichtigen en aan te passen.</p>
+				<p>Vul de gegevens in om een klant te maken.</p>
 				<div class="form-group">
 					<input type="text" name="firstname" id="firstname" tabindex="1"
 						class="form-control" placeholder="firstname" value="">
@@ -151,7 +151,7 @@ body {
 					<div class="row">
 						<div class="col-sm-6 col-sm-offset-3">
 							<input type="submit" name="login-submit" id="login-submit"
-								tabindex="4" class="form-control btn btn-login" value="Log In">
+								tabindex="4" class="form-control btn btn-login" value="Create">
 						</div>
 					</div>
 				</div>
@@ -170,7 +170,7 @@ body {
 				         alert('Je gegevens zijn niet correct ingevuld, controleer je gegevens. VERDOMME');
 				      },
 				   }, success: function (response) {
-					   window.location.href = "test.html";
+					   window.location.href = "create.html";
 				   },
 				});
 			return false;
