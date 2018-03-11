@@ -8,12 +8,13 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 
-import com.howtodoinjava.exception.MyApplicationException;
 import com.jwt.domain.Customer;
 
 import com.jwt.persistence.CustomerDAO;
+import com.sun.jersey.api.NotFoundException;
   
 @Path("/hello")
 public class HelloWorldService {
@@ -29,16 +30,22 @@ public class HelloWorldService {
     
     @GET
     @Path("/get")
-    public Response getCustomer(@QueryParam("id") int id) throws Exception {
-  
-    	if(id == 0)
+    public Response getCustomer(@QueryParam("id") String id) throws Exception {
+    	if(id == null){
+    		throw new WebApplicationException(Response.Status.PRECONDITION_FAILED);
+    	}
+    	try
         {
-            throw new MyApplicationException("id is not present in request !!");
+            Integer.parseInt(id);
         }
-    	CustomerDAO dao = new CustomerDAO();
-		Customer customer = dao.getCustomer(id);
-		String output = "Dit is:" + customer.getName() +" "+customer.getLastname() + "," + customer.getStraat()+ ","+ customer.getNummer()+"." ;
-        return Response.status(200).entity(output).build();
+        catch(NumberFormatException e)
+        {
+            throw new WebApplicationException(Response.Status.NOT_ACCEPTABLE);
+        }
+//    	CustomerDAO dao = new CustomerDAO();
+//		Customer customer = dao.getCustomer(id);
+//		String output = "Dit is:" + customer.getName() +" "+customer.getLastname() + "," + customer.getStraat()+ ","+ customer.getNummer()+"." ;
+        return Response.status(200).entity("gevonden").build();
     }
     
     @POST
