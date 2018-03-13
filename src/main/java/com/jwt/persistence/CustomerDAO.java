@@ -25,7 +25,7 @@ public class CustomerDAO extends ConnectionFactory{
         	Customer customer = null;
             
 
-        	PreparedStatement stmt = super.getConnection().prepareStatement("SELECT firstname, lastname, adress, streetnumber FROM customer WHERE id = ?;");
+        	PreparedStatement stmt = connect.prepareStatement("SELECT firstname, lastname, adress, streetnumber FROM customer WHERE id = ?;");
     		stmt.setInt(1, id);
     		ResultSet rs = stmt.executeQuery();
     		while(rs.next()) {

@@ -17,10 +17,12 @@ public class CategoryDAO extends ConnectionFactory {
 	private ArrayList<Product> products = new ArrayList<Product>();
 
 	public ArrayList<Category> allCategories() throws SQLException {
-		PreparedStatement stmt = super.getConnection().prepareStatement("SELECT * FROM category");
+    	Connection connect = null;
+    	connect = getConnection();
+		PreparedStatement stmt = connect.prepareStatement("SELECT * FROM category");
 		ResultSet rs = stmt.executeQuery();
 		while (rs.next()) {
-			PreparedStatement stmtP = super.getConnection()
+			PreparedStatement stmtP = connect
 					.prepareStatement("SELECT * FROM product WHERE category_id = ?");
 			stmtP.setInt(1, rs.getInt("id"));
 			ResultSet rsP = stmtP.executeQuery();
@@ -33,6 +35,7 @@ public class CategoryDAO extends ConnectionFactory {
 			Category category = new Category(rs.getInt("id"), rs.getString("name"), allProducts);
 			categories.add(category);
 		}
+		connect.close();
 		return categories;
 	}
 	public ArrayList<Product> allProductsPerCategory(int category_id) throws SQLException{

@@ -22,6 +22,9 @@ public class HelloWorldService {
     @GET
     @Path("/{name}")
     public Response getMsg(@PathParam("name") String name) {
+    	if(name == null){
+    		throw new WebApplicationException();
+    	}
   
         String output = "Welcome   : " + name;
   
@@ -42,10 +45,10 @@ public class HelloWorldService {
         {
             throw new WebApplicationException(Response.Status.NOT_ACCEPTABLE);
         }
-//    	CustomerDAO dao = new CustomerDAO();
-//		Customer customer = dao.getCustomer(id);
-//		String output = "Dit is:" + customer.getName() +" "+customer.getLastname() + "," + customer.getStraat()+ ","+ customer.getNummer()+"." ;
-        return Response.status(200).entity("gevonden").build();
+    	CustomerDAO dao = new CustomerDAO();
+		Customer customer = dao.getCustomer(Integer.parseInt(id));
+		String output = "Dit is:" + customer.getName() +" "+customer.getLastname() + "," + customer.getStraat()+ ","+ customer.getNummer()+"." ;
+        return Response.status(200).entity(output).build();
     }
     
     @POST
